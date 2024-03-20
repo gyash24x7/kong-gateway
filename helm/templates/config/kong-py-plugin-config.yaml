@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-py-plugin-config
+  namespace: default
+data:
+  KONG_DATABASE: "off"
+  KONG_PLUGINS: "bundled, actuator-plugin"
+  KONG_PLUGINSERVER_NAMES: "python"
+  KONG_PLUGINSERVER_PYTHON_SOCKET: "/usr/local/kong/python_pluginserver.sock"
+  KONG_PLUGINSERVER_PYTHON_START_CMD: "/usr/local/bin/kong-python-pluginserver --plugins-directory=/usr/local/kong/python-plugins --no-lua-style -v"
+  KONG_PLUGINSERVER_PYTHON_QUERY_CMD: "/usr/local/bin/kong-python-pluginserver --plugins-directory=/usr/local/kong/python-plugins --no-lua-style --dump-all-plugins"

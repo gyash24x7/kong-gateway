@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-js-plugin-config
+  namespace: default
+data:
+  KONG_DATABASE: "off"
+  KONG_PLUGINS: "bundled, actuator-plugin"
+  KONG_PLUGINSERVER_NAMES: "js"
+  KONG_PLUGINSERVER_JS_SOCKET: "/usr/local/bin/js_pluginserver.sock"
+  KONG_PLUGINSERVER_JS_START_CMD: "/usr/local/bin/kong-js-pluginserver --plugins-directory=/usr/local/kong/js-plugins -v"
+  KONG_PLUGINSERVER_JS_QUERY_CMD: "/usr/local/bin/kong-js-pluginserver --plugins-directory=/usr/local/kong/js-plugins"

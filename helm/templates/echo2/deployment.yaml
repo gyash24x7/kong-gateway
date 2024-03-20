@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo2
+spec:
+  selector:
+    matchLabels:
+      app: echo2
+  template:
+    metadata:
+      labels:
+        app: echo2
+    spec:
+      containers:
+        - image: ealen/echo-server:latest
+          imagePullPolicy: IfNotPresent
+          name: echo2
+          ports:
+            - containerPort: 8006
+          env:
+            - name: PORT
+              value: "8006"
+          resources: {}

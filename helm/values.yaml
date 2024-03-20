@@ -1,0 +1,43 @@
+kong:
+  image:
+    repository: docker.io/gyash24x7/my-kong
+    tag: 2.1.0
+    pullPolicy: Always
+
+  envFrom:
+    - configMapRef:
+        name: kong-py-plugin-config
+
+  containerSecurityContext:
+    readOnlyRootFilesystem: false
+
+  # Prepare for k8s Ingress manifests...
+  # The `Ingress` manifests in our applications
+  # won't work without the Kong Ingress Controller
+  ingressController:
+    enabled: true
+    ingressClass: kong
+
+  proxy:
+    http:
+      enabled: true
+      servicePort: 8000
+      containerPort: 8000
+
+    tls:
+      enabled: false
+
+  # There's an HTTP2 bug in Kong which creates
+  # an excess of noise in the proxy logs.
+  # The fix will be in Kong 2.8.
+  # https://github.com/Kong/kong/pull/8690
+  admin:
+    enabled: true
+    http:
+      enabled: true
+      servicePort: 8001
+      containerPort: 8001
+    tls:
+      enabled: false
+    ingress:
+      enabled: false
